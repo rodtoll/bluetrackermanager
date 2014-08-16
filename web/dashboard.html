@@ -46,7 +46,7 @@
             <td></td>
             <td class="device-present-false">Fitbit</td>
             <td class="device-present-false">Backpack</td>
-            <td class="device-present-false">Phone</td>
+            <td class="device-present-false">{{getDeviceLocationFromDeviceName('Sarah iPhone')}}</td>
         </tr>
 
         <tr height="20"/>
@@ -64,7 +64,22 @@
     <br>
     Office Humidity: {{getLastReadingFromDeviceName('pibpaster-rht-humidity')}}
     <br>
-
+    <br>
+    <table class="deviceClassTable">
+        <tr>
+            <th>Node</th>
+            <th>State</th>
+            <th>Time Since Update (s)</th>
+        </tr>
+        <tr ng-repeat="(nodeId, node) in nodes" class="node-state-{{getStateForNode(node)}}">
+            <td>
+                {{nodeId}}
+            </td>
+            <td>{{getStateForNode(node)}}</td>
+            <td>{{getTimeDelta(node.lastHeartbeat)}}s</td>
+        </tr>
+    </table>
+    <br>
     <span>Raw List</span>
     <ul class="unstyled">
         <li ng-repeat="(address, device) in devices">{{address}} -- {{device.friendlyName}} -- {{getPresentStateFromDevice(device)}} -- {{getSecondsSinceUpdateFromDevice(device)}}</li>

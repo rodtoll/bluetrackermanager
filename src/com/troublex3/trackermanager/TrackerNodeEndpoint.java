@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by rodtoll on 7/25/14.
  */
-@Api(name="node", version="v1", description = "Service for Tracker Node Management")
+@Api(name="tracker", version="v1", description = "Service for Trackers")
 public class TrackerNodeEndpoint {
     @ApiMethod(
             name = "node.heartbeat",
@@ -27,6 +27,7 @@ public class TrackerNodeEndpoint {
         TrackerNode node = TrackerStore.getNode(id);
         if(node != null) {
             node.setLastHeartbeat(new Date());
+            TrackerStore.updateNode(node);
         }
     }
 

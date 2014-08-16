@@ -11,10 +11,7 @@ public class TrackerReading implements Comparable {
     private Date timeStamp;
     private String address;
     private Double signalStrength;
-
-    public TrackerReading() {
-
-    }
+    private String nodeName;
 
     public Date getTimeStamp() {
         return timeStamp;
@@ -42,6 +39,9 @@ public class TrackerReading implements Comparable {
 
     public Double getSignalStrengthPositive() { return 100.0+signalStrength; }
 
+    public String getNodeName() { return this.nodeName; }
+    public void setNodeName(String nodeName) { this.nodeName = nodeName; }
+
     @Override
     public int compareTo(Object o) {
         TrackerReading otherReading = (TrackerReading) o;
@@ -54,6 +54,7 @@ public class TrackerReading implements Comparable {
                 ", time = " + timeStamp.toString() +
                 ", address = " + address +
                 ", signal = " + signalStrength.toString() +
+                ", node = " + nodeName +
                 " }";
     }
 }

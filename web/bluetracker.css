@@ -39,3 +39,18 @@
     font-weight: bold;
     text-align: center;
 }
+
+.node-state-noreport {
+    color: white;
+    background-color: red;
+}
+
+.node-state-timeout {
+    color: white;
+    background-color: red;
+}
+
+.node-state-online {
+    color: white;
+    background-color: green;
+}

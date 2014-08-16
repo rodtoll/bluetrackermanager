@@ -9,12 +9,13 @@ import java.util.UUID;
 public class TrackerNode {
 
     private String nodeId;
-    private TrackerReading lastReading;
+    private Date lastReading;
     private Date lastHeartbeat;
 
     public TrackerNode() {
         nodeId = "";
         lastReading = null;
+        lastHeartbeat = null;
     }
 
     public String getNodeId() {
@@ -25,12 +26,13 @@ public class TrackerNode {
         this.nodeId = nodeId;
     }
 
-    public TrackerReading getLastReading() {
+    public Date getLastReading() {
         return lastReading;
     }
 
-    public void setLastReading(TrackerReading lastReading) {
+    public void setLastReading(Date lastReading) {
         this.lastReading = lastReading;
+        setLastHeartbeat(lastReading);
     }
 
     public Date getLastHeartbeat() {

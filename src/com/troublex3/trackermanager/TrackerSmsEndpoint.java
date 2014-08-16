@@ -20,6 +20,10 @@ public class TrackerSmsEndpoint extends HttpServlet {
                 return "Rod MotoX SMS";
             } else if (from.contentEquals("+14258290621")) {
                 return "Joanne Galaxy S5 SMS";
+            } else if (from.contentEquals("+14252474864")) {
+                return "Sarah iPhone";
+            } else if (from.contentEquals("+14259854543")) {
+                return "Sam iPhone";
             }
         }
         return null;
@@ -28,46 +32,30 @@ public class TrackerSmsEndpoint extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        TrackerNode node = TrackerStore.getNode("twilio");
-
         String addressToUse = mapRequestToSource(request);
         if(addressToUse==null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        response.setContentType("text/plain");
 
-        if(node != null) {
+        String textContent = request.getParameter("Body");
+        Integer stateToWrite = 0;
 
-            String textContent = request.getParameter("Body");
-            Integer stateToWrite = 0;
-
-            if(textContent.contains("entered")) {
-
-                if(textContent.contains("1")) {
-                    stateToWrite = 1;
-                } else if(textContent.contains("2")) {
-                    stateToWrite = 2;
-                } else {
-                    stateToWrite = 3;
-                }
+        if(textContent.contains("entered")) {
+            if(textContent.contains("1")) {
+                stateToWrite = 1;
+            } else if(textContent.contains("2")) {
+                stateToWrite = 2;
             } else {
-                stateToWrite = 0;
+                stateToWrite = 3;
             }
-
-            Date timeStamp = new Date();
-            node.setLastHeartbeat(timeStamp);
-            TrackerReading reading = new TrackerReading();
-            reading.setAddress(addressToUse);
-            request.getHeader(TrackerAuthentication.AUTHENTICATION_HEADER);
-            reading.setSignalStrength(stateToWrite.doubleValue());
-            reading.setTimeStamp(timeStamp);
-            TrackerStore.addReading(node, reading);
-            node.setLastReading(reading);
-            TrackerStore.updateNode(node);
-            response.getWriter().print(addressToUse + " -- " + stateToWrite.toString());
-            return;
+        } else {
+            stateToWrite = 0;
         }
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-    }
+
+        TrackerShared.addReading("twilio", addressToUse, stateToWrite.doubleValue());
+
+        response.setContentType("text/plain");
+        response.getWriter().print(addressToUse + " -- " + stateToWrite.toString());
+     }
 }

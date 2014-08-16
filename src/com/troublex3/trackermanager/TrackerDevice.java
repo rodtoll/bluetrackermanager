@@ -12,6 +12,7 @@ public class TrackerDevice {
     private String friendlyName;
     private Date lastSeen;
     private HashMap<String,Date> lastSeenMap;
+    private TrackerReading lastReading;
 
     public TrackerDevice() {
         this.lastSeenMap = new HashMap<String, Date>();
@@ -44,5 +45,12 @@ public class TrackerDevice {
 
     public Map<String,Date> getSeenMap() {
         return this.lastSeenMap;
+    }
+
+    public TrackerReading getLastReading() { return this.lastReading; }
+
+    public void setLastReading(TrackerReading reading) {
+        this.lastReading = reading;
+        this.updateSeenMap(reading.getNodeName(), reading.getTimeStamp());
     }
 }

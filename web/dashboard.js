@@ -6,30 +6,48 @@ angular.module('dashboardApp', [])
 
         $scope.devices = [];
         $scope.friendlyDevices = [];
+        $scope.nodes = [];
 
-        $scope.update = function() {
-            $http({method: 'GET', url: '/_ah/api/devices/v1/devices/', headers: {'x-troublex3-bluetracker-auth': 'yo'}}).
+        $scope.updateDevices = function() {
+            $http({method: 'GET', url: '/_ah/api/tracker/v1/device/', headers: {'x-troublex3-bluetracker-auth': 'yo'}}).
                 success(function (data, status, headers, config) {
                     newDeviceList = new Object();
                     newFriendlyDeviceList = new Object();
-                    for(x = 0; x < data.items.length;x++) {
+                    for (x = 0; x < data.items.length; x++) {
                         newDeviceList[data.items[x].address] = data.items[x];
                         newFriendlyDeviceList[data.items[x].friendlyName] = data.items[x];
                     }
                     $scope.devices = newDeviceList;
                     $scope.friendlyDevices = newFriendlyDeviceList;
-                    $timeout($scope.update, 2000);
+                    $timeout($scope.updateDevices, 2000);
                 }).
                 error(function (data, status, headers, config) {
-                    window.alert('ERROR retrieving device list');
-                    $timeout($scope.update, 2000);
+                    $timeout($scope.updateDevices, 2000);
+                });
+        };
+
+        $scope.updateNodes = function() {
+            $http({method: 'GET', url: '/_ah/api/tracker/v1/node/', headers: {'x-troublex3-bluetracker-auth': 'yo'}}).
+                success(function (data, status, headers, config) {
+                    newNodeList = new Object();
+                    for(x = 0; x < data.items.length;x++) {
+                        newNodeList[data.items[x].nodeId] = data.items[x];
+                    }
+                    $scope.nodes = newNodeList;
+                    $timeout($scope.updateNodes, 4000);
+                }).
+                error(function (data, status, headers, config) {
+                    $timeout($scope.updateNodes, 4000);
                 });
         };
 
         $scope.getSecondsSinceUpdateFromDevice = function(device) {
+            return $scope.getTimeDelta(device.lastSeen);
+        };
 
+        $scope.getTimeDelta = function(dateToCheck) {
             currentDate = new Date();
-            tmpDate = new Date(device.lastSeen);
+            tmpDate = new Date(dateToCheck);
 
             dateDelta = (currentDate.getTime() - tmpDate.getTime()) / 1000;
 
@@ -44,6 +62,16 @@ angular.module('dashboardApp', [])
                 return true;
             }
         };
+
+        $scope.getStateForNode = function(node) {
+            if(node.lastHeartbeat == null) {
+                return "noreport";
+            } else if($scope.getTimeDelta(node.lastHeartbeat) > 60) {
+                return "timeout";
+            } else {
+                return "online";
+            }
+        }
 
         $scope.getPresentStateFromDeviceName = function(deviceName) {
             if(deviceName in $scope.devices) {
@@ -75,7 +103,7 @@ angular.module('dashboardApp', [])
                 }
             }
             return -100000;
-        }
+        };
 
         $scope.getDeviceLocationFromDeviceName = function(deviceName) {
             lastReading = $scope.getLastReadingFromDeviceName(deviceName);
@@ -87,10 +115,19 @@ angular.module('dashboardApp', [])
                 return "home";
             } else if(lastReading == 2) {
                 return "work";
+            } else if(lastReading == 3) {
+                return "club";
+            } else if(lastReading == 4) {
+                return "60 acres";
+            } else if(lastReading == 5) {
+                return "Grasslawn";
+            } else if(lastReading == 6) {
+                return "Redmond HS";
             } else {
                 return "unknown";
             }
         }
 
-        $scope.update();
+        $scope.updateNodes();
+        $scope.updateDevices();
     }]);

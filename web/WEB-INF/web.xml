@@ -8,7 +8,7 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.troublex3.trackermanager.TrackerReadingEndpoint,com.troublex3.trackermanager.TrackerNodeEndpoint,com.troublex3.trackermanager.TrackerDeviceEndpoint</param-value>
+            <param-value>com.troublex3.trackermanager.TrackerNodeEndpoint,com.troublex3.trackermanager.TrackerDeviceEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet>

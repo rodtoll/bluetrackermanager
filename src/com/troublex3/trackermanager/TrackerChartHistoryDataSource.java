@@ -33,7 +33,7 @@ public class TrackerChartHistoryDataSource extends DataSourceServlet {
         List<TrackerNode> nodes = TrackerStore.getNodeList();
 
         for(TrackerNode node : nodes) {
-            List<TrackerReading> readings = TrackerStore.getReadings(node);
+            SortedSet<TrackerReading> readings = TrackerStore.getNodeReadings(node.getNodeId());
             for(TrackerReading reading : readings) {
                 TableRow row = new TableRow();
                 GregorianCalendar calendar = new GregorianCalendar();
@@ -48,7 +48,7 @@ public class TrackerChartHistoryDataSource extends DataSourceServlet {
                     0
                 ));
                 row.addCell(node.getNodeId());
-                row.addCell(TrackerStore.translateAddressIfPossible(reading.getAddress()));
+                row.addCell(reading.getAddress());
                 row.addCell(reading.getSignalStrengthPositive());
                 data.addRow(row);
             }

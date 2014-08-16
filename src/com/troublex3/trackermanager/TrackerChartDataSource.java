@@ -30,7 +30,7 @@ public class TrackerChartDataSource extends DataSourceServlet {
         Date currentTime = new Date();
 
         List<TrackerNode> nodes = TrackerStore.getNodeList();
-        List<TrackerDevice> devices = new ArrayList<TrackerDevice>(TrackerStore.getDevicesSeen());
+        List<TrackerDevice> devices = new ArrayList<TrackerDevice>(TrackerStore.getDeviceList());
 
         DataTable data = new DataTable();
         data.addColumn(new ColumnDescription("address", ValueType.TEXT, "Address"));
@@ -43,7 +43,7 @@ public class TrackerChartDataSource extends DataSourceServlet {
         Double [][] dataMap = new Double[nodes.size()][devices.size()];
         Integer column = 0;
         for(TrackerNode node : nodes) {
-            for(TrackerReading reading : TrackerStore.getReadings(node)) {
+            for(TrackerReading reading : TrackerStore.getNodeReadings(node.getNodeId())) {
                 for(Integer row = 0; row < devices.size(); row++) {
                     if(devices.get(row).getAddress().contentEquals(reading.getAddress())) {
                         long diffInSeconds = (currentTime.getTime() - reading.getTimeStamp().getTime()) / 1000;

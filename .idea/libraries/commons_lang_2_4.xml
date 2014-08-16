@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="commons-lang-2.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/visualization/lib/commons-lang-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/visualization/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/visualization/lib/guava-r07.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/visualization/lib/icu4j-4_0_1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

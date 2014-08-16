@@ -1,0 +1,41 @@
+.device-present-false {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    text-align: center;
+    width: 100px;
+}
+
+.device-present-true {
+    color: white;
+    background-color: green;
+    font-weight: bold;
+    text-align: center;
+    width: 100px;
+}
+
+.device-class-table {
+    border-spacing: 10px;
+    padding: 10px;
+}
+
+.device-state-present {
+    color: white;
+    background-color: green;
+    font-weight: bold;
+    text-align: center;
+}
+
+.device-state-nearby {
+    color: black;
+    background-color: yellow;
+    font-weight: bold;
+    text-align: center;
+}
+
+.device-state-out {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    text-align: center;
+}

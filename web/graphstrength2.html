@@ -1,0 +1,64 @@
+<html>
+<head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', {'packages':['corechart', 'table']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(init);
+
+        var chart = null;
+        var data = new google.visualization.DataTable();
+        var hasDrawn = false;
+        alert('1');
+        var query = null;
+
+        // Send the query to the data source.
+        function init() {
+            query = new google.visualization.Query('/chartdata?tqrt=scriptInjection');
+            // Specify the data source URL.
+            query.setRefreshInterval(2);
+
+            //query.setQuery("select * where address = 'Estimote T1' or address = 'Rod Fitbit'");
+
+            // Send the query with a callback function.
+            query.send(handleQueryResponse);
+
+            //chart = new google.visualization.Table(document.getElementById('chart_div'));
+            chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        }
+
+        // Handle the query response.
+        function handleQueryResponse(response) {
+            if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+
+            // Draw the visualization.
+            data = response.getDataTable();
+
+            var view = new google.visualization.DataView(data);
+   /*         view.setColumns([0, 1,
+                { calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation" }, 2, 3, 4, 5, 6, 7
+                ]); */
+
+            chart.draw(view,
+                    {width: 1400, height: 1000, is3D: true});
+        }
+
+
+    </script>
+</head>
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div" style="width:1400; height:1000"></div>
+</body>
+</html>

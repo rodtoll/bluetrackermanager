@@ -1,0 +1,47 @@
+<html>
+<head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', {'packages':['corechart', 'table']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(init);
+
+        // Send the query to the data source.
+        function init() {
+
+            // Specify the data source URL.
+            var query = new google.visualization.Query('charthistorydata');
+
+            query.setQuery("select readingtime, node, device, reading where device='Miley Collar' order by readingtime");
+
+            // Send the query with a callback function.
+            query.send(handleQueryResponse);
+        }
+
+        // Handle the query response.
+        function handleQueryResponse(response) {
+            if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+
+            // Draw the visualization.
+            var data = response.getDataTable();
+            var chart = new google.visualization.Table(document.getElementById('chart_div'));
+            chart.draw(data, {width: 600, height: 550, is3D: true});
+        }
+
+
+    </script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div" style="width:700; height:550"></div>
+</body>
+</html>

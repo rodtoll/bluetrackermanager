@@ -1,0 +1,74 @@
+<!doctype html>
+<html ng-app="dashboardApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+    <script src="dashboard.js"></script>
+    <link rel="stylesheet" href="bluetracker.css">
+</head>
+<body>
+<h2>Dashboard</h2>
+<div ng-controller="DashboardController">
+    <table class="deviceClassTable">
+        <tr>
+            <td colspan="3">Rod</td>
+            <td width="20"></td>
+            <td colspan="3">Joanne</td>
+        </tr>
+        <tr>
+            <td colspan="3"  class="device-state-{{getUserPresenceFromDeviceNames('Rod MotoX', 'Infiniti Est2DB')}}">State: {{getUserPresenceFromDeviceNames('Rod MotoX', 'Infiniti Est2DB')}}</td>
+            <td width="20"></td>
+            <td colspan="3"  class="device-state-{{getUserPresenceFromDeviceNames('Jo Galaxy S5', 'Joanne Truck')}}">State: {{getUserPresenceFromDeviceNames('Jo Galaxy S5', 'Joanne Truck')}}</td>
+        </tr>
+        <tr>
+            <td class="device-present-{{getPresentStateFromDeviceName('Rod Fitbit')}}">Fitbit</td>
+            <td class="device-present-{{getPresentStateFromDeviceName('Infiniti Est2DB')}}">Infiniti</td>
+            <td class="device-present-{{getPresentStateFromDeviceName('Rod MotoX')}}">Phone</td>
+            <td></td>
+            <td class="device-present-{{getPresentStateFromDeviceName('Jo Fitbit')}}">Fitbit</td>
+            <td class="device-present-{{getPresentStateFromDeviceName('Joanne Truck')}}">Honda</td>
+            <td class="device-present-{{getPresentStateFromDeviceName('Jo Galaxy S5')}}">Phone</td>
+        </tr>
+        <tr height="20"/>
+        <tr>
+            <td colspan="3">Sam</td>
+            <td width="20"></td>
+            <td colspan="3">Sarah</td>
+        </tr>
+        <tr>
+            <td colspan="3"  class="device-state-out">State: out</td>
+            <td width="20"></td>
+            <td colspan="3"  class="device-state-out">State: out</td>
+        </tr>
+        <tr>
+            <td class="device-present-false">Fitbit</td>
+            <td class="device-present-false">Backpack</td>
+            <td class="device-present-false">Phone</td>
+            <td></td>
+            <td class="device-present-false">Fitbit</td>
+            <td class="device-present-false">Backpack</td>
+            <td class="device-present-false">Phone</td>
+        </tr>
+
+        <tr height="20"/>
+        <tr>
+            <td colspan="1">Miley</td>
+        </tr>
+        <tr>
+            <td class="device-present-{{getPresentStateFromDeviceName('Miley Collar')}}">Collar</td>
+        </tr>
+    </table>
+    <br>
+    Rod Phone Location: {{getDeviceLocationFromDeviceName('Rod MotoX SMS')}}
+    <br>
+    Office Temp: {{getLastReadingFromDeviceName('pibpaster-rht-temp')}}
+    <br>
+    Office Humidity: {{getLastReadingFromDeviceName('pibpaster-rht-humidity')}}
+    <br>
+
+    <span>Raw List</span>
+    <ul class="unstyled">
+        <li ng-repeat="(address, device) in devices">{{address}} -- {{device.friendlyName}} -- {{getPresentStateFromDevice(device)}} -- {{getSecondsSinceUpdateFromDevice(device)}}</li>
+    </ul>
+</div>
+</body>
+</html>

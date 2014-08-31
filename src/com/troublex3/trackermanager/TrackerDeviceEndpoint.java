@@ -30,7 +30,7 @@ public class TrackerDeviceEndpoint {
     )
     public List<TrackerDevice> deviceList(User user, HttpServletRequest request) throws UnauthorizedException {
         TrackerAuthentication.authenticateOrThrow(user, request);
-        return TrackerStore.getDeviceList();
+        return TrackerController.getDevices();
     }
 
     @ApiMethod(
@@ -47,7 +47,7 @@ public class TrackerDeviceEndpoint {
             address = URLDecoder.decode(address, "UTF-8");
         }
 
-        return TrackerStore.getDevice(address);
+        return TrackerController.getDevice(address);
     }
 
     @ApiMethod(
@@ -64,7 +64,7 @@ public class TrackerDeviceEndpoint {
             address = URLDecoder.decode(address, "UTF-8");
         }
 
-        return TrackerStore.getDeviceReadings(address);
+        return TrackerController.getDeviceReadings(address);
     }
 
     @ApiMethod(
@@ -81,7 +81,10 @@ public class TrackerDeviceEndpoint {
             @Named("address") String address,
             @Named("readingValue") Double readingValue) throws UnauthorizedException {
         TrackerAuthentication.authenticateOrThrow(user, request);
+        if(nodeId.contentEquals(TrackerNodeEndpoint.CurrentString)) {
+            nodeId = request.getRemoteAddr();
+        }
         address = URLDecoder.decode(address);
-        TrackerShared.addReading(nodeId, address, readingValue);
+        TrackerController.addReading(nodeId, address, readingValue);
     }
 }

@@ -1,0 +1,206 @@
+{
+    "devices": [
+        {
+            "address": "E6:18:EB:4A:FE:D1",
+            "friendlyName": "Miley Collar",
+            "deviceType": "StickNFind",
+            "isyVariableName": "BLE_MILEY",
+            "reportingInterval": 4,
+            "timeoutInterval": 60
+        },
+        {
+            "address": "F0:B2:48:5A:8A:49",
+            "friendlyName": "Honda Pilot",
+            "deviceType": "StickNFind",
+            "isyVariableName": "BLE_HONDA",
+            "reportingInterval": 4,
+            "timeoutInterval": 60
+        },
+        {
+            "address": "E1:07:2C:6F:9A:B2",
+            "friendlyName": "Joanne Fitbit",
+            "deviceType": "Fitbit",
+            "isyVariableName": "BLE_FITBIT_JOANNE",
+            "reportingInterval": 4,
+            "timeoutInterval": 60
+        },
+        {
+            "address": "D4:AD:89:B6:D5:C9",
+            "friendlyName": "Rod Fitbit",
+            "deviceType": "Fitbit",
+            "isyVariableName": "BLE_FITBIT_ROD",
+            "reportingInterval": 4,
+            "timeoutInterval": 60
+        },
+        {
+            "address": "E3:26:26:CA:8C:12",
+            "friendlyName": "Infiniti",
+            "deviceType": "Estimote",
+            "isyVariableName": "BLE_INFINITI",
+            "reportingInterval": 3,
+            "timeoutInterval": 60
+        },
+        {
+            "address": "10.0.1.165",
+            "friendlyName": "Rod MotoX",
+            "deviceType": "Ping",
+            "isyVariableName": "BLE_MOTOX_ROD",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.67",
+            "friendlyName": "Jo Galaxy S5",
+            "deviceType": "Ping",
+            "isyVariableName": "BLE_GALAXYS5_JO",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "00:07:80:71:E9:29",
+            "friendlyName": "Radius USB Beacon",
+            "deviceType": "RadiusUSB",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "90:59:AF:0B:84:DE",
+            "friendlyName": "SensorTag Pink",
+            "deviceType": "SensorTag",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "90:59:AF:0B:85:10",
+            "friendlyName": "SensorTag Orange",
+            "deviceType": "SensorTag",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "D1:75:8B:D0:21:6E",
+            "friendlyName": "Radius BeaconTag",
+            "deviceType": "RadiusTag",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "F0:A5:E2:21:8A:39",
+            "friendlyName": "Estimote T1",
+            "deviceType": "Estimote",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "F3:68:2F:8C:7D:79",
+            "friendlyName": "Estimote LB3",
+            "deviceType": "Estimote",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "30:14:4A:3C:F2:0F",
+            "friendlyName": "MainFloor TV",
+            "deviceType": "PanasonicTV",
+            "isyVariableName": "",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "+14254459180",
+            "friendlyName": "Rod MotoX SMS",
+            "deviceType": "SMS",
+            "isyVariableName": "BLE_SMS_ROD",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "+14252474864",
+            "friendlyName": "Sarah iPhone",
+            "deviceType": "SMS",
+            "isyVariableName": "BLE_SMS_SARAH",
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        }
+    ],
+    "nodes": [
+        {
+            "nodeId": "pibp1",
+            "isyVariableName":"BluetoothLE_PiBP1_Heartbeat",
+            "address": "10.0.1.170",
+            "location": "Basement",
+            "nodeType": "pibp",
+            "capabilities": ""
+        },
+        {
+            "nodeId": "pibp3",
+            "isyVariableName":"BluetoothLE_PiBP3_Heartbeat",
+            "address": "10.0.1.180",
+            "location": "Master Bedroom",
+            "nodeType": "pibp",
+            "capabilities": "rht"
+        },
+        {
+            "nodeId": "pibpmaster",
+            "isyVariableName":"BluetoothLE_PiBPMaster_Heartbeat",
+            "address": "10.0.1.175",
+            "location": "Office",
+            "nodeType": "pibp",
+            "capabilities": "ping rht"
+        },
+        {
+            "nodeId": "pirainbow",
+            "isyVariableName": "BluetoothLE_PiRainbow_Heartbeat",
+            "address": "10.0.1.152",
+            "location": "Main Floor Closet",
+            "nodeType": "pi",
+            "capabilities": ""
+        },
+        {
+            "nodeId": "piwhite",
+            "isyVariableName": "BluetoothLE_PiWhite_Heartbeat",
+            "address": "10.0.1.185",
+            "location": "TV Room",
+            "nodeType": "pi",
+            "capabilities": ""
+        },
+        {
+            "nodeId": "pismoky",
+            "isyVariableName": "BluetoothLE_PiSmoky_Heartbeat",
+            "address": "10.0.1.155",
+            "location": "Garage",
+            "nodeType": "pi",
+            "capabilities": ""
+        },
+        {
+            "nodeId": "macbookpro",
+            "isyVariableName": "BluetoothLE_MacBookPro_Heartbeat",
+            "address": "10.0.1.62",
+            "location": "Office",
+            "nodeType": "macbook",
+            "capabilities": ""
+        },
+        {
+            "nodeId": "macbookpro-mac",
+            "isyVariableName": "BluetoothLE_MacBookPro_Heartbeat",
+            "address": "127.0.0.1",
+            "location": "Office",
+            "nodeType": "macbook",
+            "capabilities": ""
+        },
+        {
+            "nodeId": "twilio",
+            "isyVariableName": "",
+            "address": "",
+            "location": "",
+            "nodeType": "twilio",
+            "capabilities": ""
+        }
+    ]
+}

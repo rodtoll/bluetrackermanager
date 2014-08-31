@@ -55,6 +55,9 @@ angular.module('dashboardApp', [])
         };
 
         $scope.getPresentStateFromDevice = function(device) {
+            if(device.lastSeen == null) {
+                return false;
+            }
             timeDeltaInSeconds = $scope.getSecondsSinceUpdateFromDevice(device);
             if(timeDeltaInSeconds > 66) {
                 return false;
@@ -64,7 +67,9 @@ angular.module('dashboardApp', [])
         };
 
         $scope.getStateForNode = function(node) {
-            if(node.lastHeartbeat == null) {
+            if(node.nodeId == "twilio") {
+                return "online";
+            } else if(node.lastHeartbeat == null) {
                 return "noreport";
             } else if($scope.getTimeDelta(node.lastHeartbeat) > 60) {
                 return "timeout";

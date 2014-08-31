@@ -13,6 +13,27 @@ public class TrackerReading implements Comparable {
     private Double signalStrength;
     private String nodeName;
 
+    public TrackerReading() {
+
+    }
+
+    public TrackerReading(Date _timeStamp,
+                          String _address,
+                          Double _signalStrength,
+                          String _nodeName) {
+        setTimeStamp(_timeStamp);
+        setAddress(_address);
+        setSignalStrength(_signalStrength);
+        setNodeName(_nodeName);
+    }
+
+    public TrackerReading(TrackerReading readingToCopy) {
+        setTimeStamp(readingToCopy.getTimeStamp());
+        setAddress(readingToCopy.getAddress());
+        setSignalStrength(readingToCopy.getSignalStrength());
+        setNodeName(readingToCopy.getNodeName());
+    }
+
     public Date getTimeStamp() {
         return timeStamp;
     }

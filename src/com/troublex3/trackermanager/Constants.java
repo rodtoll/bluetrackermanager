@@ -10,5 +10,5 @@ public class Constants {
     public static final String READINGS_ENTITY_ADDRESS_PROPERTY = "address";
     public static final String READINGS_ENTITY_SIGNALSTRENGTH_PROPERTY = "signalstrength";
     public static final String READINGS_ENTITY_NODENAME_PROPERTY = "nodename";
-    public static final Integer READINGS_MAX_COUNT = 1800;
+    public static final Integer READINGS_MAX_COUNT = 300;
 }

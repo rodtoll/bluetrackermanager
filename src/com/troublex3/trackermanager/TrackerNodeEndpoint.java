@@ -3,6 +3,7 @@ package com.troublex3.trackermanager;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.users.User;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ import java.util.List;
  */
 @Api(name="tracker", version="v1", description = "Service for Trackers")
 public class TrackerNodeEndpoint {
+
+    public static final String CurrentString = "current";
+
     @ApiMethod(
             name = "node.heartbeat",
             path = "node/{id}",
@@ -22,12 +26,13 @@ public class TrackerNodeEndpoint {
             scopes = {TrackerAuthentication.EMAIL_SCOPE},
             clientIds = { TrackerAuthentication.OTHER_CLIENT_ID, TrackerAuthentication.APP_ENGINE_CLIENT_ID, com.google.api.server.spi.Constant.API_EXPLORER_CLIENT_ID}
     )
-    public void heartbeat(User user, HttpServletRequest request, @Named("id") String id) throws UnauthorizedException {
+    public void heartbeat(User user, HttpServletRequest request, @Named("id") String id) throws UnauthorizedException, NotFoundException {
         TrackerAuthentication.authenticateOrThrow(user, request);
-        TrackerNode node = TrackerStore.getNode(id);
-        if(node != null) {
-            node.setLastHeartbeat(new Date());
-            TrackerStore.updateNode(node);
+        if(id.contentEquals(TrackerNodeEndpoint.CurrentString)) {
+            id = request.getRemoteAddr();
+        }
+        if(!TrackerController.markNodeHeartbeatSeen(id, new Date())) {
+            throw new NotFoundException("Specified node does not exist");
         }
     }
 
@@ -38,9 +43,12 @@ public class TrackerNodeEndpoint {
             scopes = {TrackerAuthentication.EMAIL_SCOPE},
             clientIds = { TrackerAuthentication.OTHER_CLIENT_ID, TrackerAuthentication.APP_ENGINE_CLIENT_ID, com.google.api.server.spi.Constant.API_EXPLORER_CLIENT_ID}
     )
-    public TrackerNode getNode(User user, HttpServletRequest request, @Named("id") String id) throws UnauthorizedException {
+    public TrackerNode getNode(User user, HttpServletRequest request, @Named("id") String id) throws UnauthorizedException, NotFoundException {
         TrackerAuthentication.authenticateOrThrow(user, request);
-        return TrackerStore.getNode(id);
+        if(id.contentEquals(TrackerNodeEndpoint.CurrentString)) {
+            id = request.getRemoteAddr();
+        }
+        return TrackerController.getNode(id);
     }
 
     @ApiMethod(
@@ -52,6 +60,6 @@ public class TrackerNodeEndpoint {
     )
     public List<TrackerNode> nodeList(User user, HttpServletRequest request) throws UnauthorizedException {
         TrackerAuthentication.authenticateOrThrow(user, request);
-        return TrackerStore.getNodeList();
+        return TrackerController.getNodes();
     }
 }

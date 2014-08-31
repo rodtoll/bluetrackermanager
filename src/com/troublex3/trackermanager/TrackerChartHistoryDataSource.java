@@ -19,11 +19,12 @@ import sun.awt.SunHints;
 /**
  * Created by rodtoll on 8/9/14.
  */
+
 public class TrackerChartHistoryDataSource extends DataSourceServlet {
 
     @Override
     public DataTable generateDataTable(Query query, HttpServletRequest request) throws TypeMismatchException{
-
+/*
         DataTable data = new DataTable();
         data.addColumn(new ColumnDescription("readingtime", ValueType.DATETIME, "Reading Timestamp"));
         data.addColumn(new ColumnDescription("node", ValueType.TEXT, "Node"));
@@ -53,7 +54,8 @@ public class TrackerChartHistoryDataSource extends DataSourceServlet {
                 data.addRow(row);
             }
         }
-        return data;
+        return data;*/
+        return new DataTable();
     }
 
     @Override

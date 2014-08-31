@@ -30,6 +30,8 @@
     <orderEntry type="library" name="commons-lang-2.4" level="project" />
     <orderEntry type="library" name="visualization-datasource-1.1.1 (2)" level="project" />
     <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="jackson-core-2.3.4" level="project" />
+    <orderEntry type="library" name="gson-2.3" level="project" />
   </component>
 </module>
 

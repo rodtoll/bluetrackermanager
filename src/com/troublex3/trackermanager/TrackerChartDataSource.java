@@ -26,7 +26,7 @@ public class TrackerChartDataSource extends DataSourceServlet {
 
     @Override
     public DataTable generateDataTable(Query query, HttpServletRequest request) {
-
+/*
         Date currentTime = new Date();
 
         List<TrackerNode> nodes = TrackerStore.getNodeList();
@@ -74,7 +74,8 @@ public class TrackerChartDataSource extends DataSourceServlet {
             }
         }
 
-        return data;
+        return data;*/
+        return new DataTable();
     }
 
     @Override

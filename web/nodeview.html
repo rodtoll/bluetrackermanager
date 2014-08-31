@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app="dashboardApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+    <script src="nodeview.js"></script>
+    <link rel="stylesheet" href="bluetracker.css">
+</head>
+<body>
+<h2>Dashboard</h2>
+<div ng-controller="NodeController">
+    <table class="deviceClassTable" border="1">
+        <tr>
+            <th>Node</th>
+            <th>Devices</th>
+        </tr>
+        <tr ng-repeat="node in nodes">
+            <td>{{node.nodeId}}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="device in node.deviceList">
+                    {{device.friendlyName}} -- {{device.lastReading.signalStrength}} -- {{device.timeStamp}} -- {{getSecondsSinceUpdateFromDevice(device)}}
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

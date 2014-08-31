@@ -1,159 +1,196 @@
 package com.troublex3.trackermanager;
 
-import com.sun.javafx.collections.transformation.SortedList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.io.*;
+import com.google.gson.*;
 
 /**
  * Created by rodtoll on 7/25/14.
  */
 public class TrackerStore {
 
-    private static HashMap<String,TrackerDevice> devices = new HashMap<String, TrackerDevice>();
-    private static HashMap<String,TrackerNode> nodes = new HashMap<String, TrackerNode>();
-    private static HashMap<String,SortedSet<TrackerReading>> readingsByDevice = new HashMap<String, SortedSet<TrackerReading>>();
-    private static HashMap<String,SortedSet<TrackerReading>> readingsByNode = new HashMap<String, SortedSet<TrackerReading>>();
-    private static HashMap<String,String> friendlyNames = new HashMap<String, String>();
+    private List<TrackerDevice> devices = new ArrayList<TrackerDevice>();
+    private List<TrackerNode> nodes = new ArrayList<TrackerNode>();
 
-    public static String translateFriendlyToAddressIfPossible(String address) {
-        if(friendlyNames.containsValue(address)) {
-            for(Map.Entry<String,String> entry: friendlyNames.entrySet()) {
-                if(entry.getValue().contentEquals(address)) {
-                    return entry.getKey();
+    private HashMap<String,SortedSet<TrackerReading>> readingsByDevice = new HashMap<String, SortedSet<TrackerReading>>();
+    private HashMap<String,SortedSet<TrackerReading>> readingsByNode = new HashMap<String, SortedSet<TrackerReading>>();
+
+    public TrackerNode getNode(String nodeId) {
+        synchronized(nodes) {
+            TrackerNode node = internalGetNode(nodeId);
+            if(node == null) {
+                return null;
+            } else {
+                return new TrackerNode(node);
+            }
+        }
+    }
+
+    protected TrackerNode internalGetNode(String nodeId) {
+        synchronized (nodes) {
+            for(TrackerNode node : nodes) {
+                if(nodeId.contentEquals(node.getAddress()) || nodeId.contentEquals(node.getNodeId())) {
+                    return node;
                 }
             }
         }
-        return address;
+        return null;
     }
 
-    public static String translateFriendlyToAddress(String address) {
-        if(friendlyNames.containsKey(address)) {
-            return friendlyNames.get(address);
-        } else {
-            return address;
+    public List<TrackerNode> getNodeList() {
+        ArrayList<TrackerNode> results = new ArrayList<TrackerNode>();
+        synchronized (nodes) {
+            for (TrackerNode node : nodes) {
+                results.add(new TrackerNode(node));
+            }
+        }
+        return results;
+    }
+
+    public TrackerDevice getDevice(String deviceId) {
+        synchronized (devices) {
+            TrackerDevice device = internalGetDevice(deviceId);
+            if(device == null) {
+                return null;
+            } else {
+                return new TrackerDevice(device);
+            }
         }
     }
 
-    public static TrackerNode getNode(String nodeId) {
-        if(nodes.containsKey(nodeId)) {
-            return nodes.get(nodeId);
-        } else {
-            return null;
+    protected TrackerDevice internalGetDevice(String deviceId) {
+        synchronized(devices) {
+            for (TrackerDevice device : devices) {
+                if (deviceId.contentEquals(device.getAddress()) || deviceId.contentEquals(device.getFriendlyName())) {
+                    return device;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<TrackerDevice> getDeviceList() {
+        ArrayList<TrackerDevice> results = new ArrayList<TrackerDevice>();
+        synchronized (devices) {
+            for (TrackerDevice device : devices) {
+                results.add(new TrackerDevice(device));
+            }
+        }
+        return results;
+    }
+
+    public Boolean updateNode(TrackerNode node) {
+        synchronized(nodes) {
+            TrackerNode internalNode = internalGetNode(node.getNodeId());
+            if(internalNode == null) {
+                return false;
+            }
+            internalNode.setFrom(node);
+            return true;
         }
     }
 
-    public static List<TrackerNode> getNodeList() {
-        return new ArrayList<TrackerNode>(nodes.values());
-    }
-
-    public static TrackerDevice getDevice(String deviceId) {
-        String addressToUse = translateFriendlyToAddress(deviceId);
-        if(devices.containsKey(addressToUse)) {
-            return devices.get(addressToUse);
-        } else {
-            return null;
+    public Boolean updateDevice(TrackerDevice device) {
+        synchronized(devices) {
+            TrackerDevice internalDevice = internalGetDevice(device.getAddress());
+            if(internalDevice == null) {
+                return false;
+            }
+            internalDevice.setFrom(device);
+            return true;
         }
     }
 
-    public static void updateNode(TrackerNode node) {
-        // No-op
-    }
-
-    public static void updateDevice(TrackerDevice device) {
-        // No-op
-    }
-
-    public static void addDevice(TrackerDevice device) {
-        devices.put(device.getAddress(), device);
-    }
-
-    public static TrackerDevice createDevice(String address, TrackerReading initialReading) {
-        TrackerDevice newDevice = new TrackerDevice();
-        newDevice.setAddress(address);
-        newDevice.setFriendlyName(translateFriendlyToAddress(address));
-        newDevice.setLastReading(initialReading);
-        return newDevice;
-    }
-
-    public static SortedSet<TrackerReading> getNodeReadings(String nodeId) {
-        return readingsByNode.get(nodeId);
-    }
-
-    public static SortedSet<TrackerReading> getDeviceReadings(String deviceId) {
-        return readingsByDevice.get(deviceId);
-    }
-
-    public static void addReading(TrackerReading reading) {
-        SortedSet<TrackerReading> byDevice = readingsByDevice.get(reading.getAddress());
-        if(byDevice == null) {
-            byDevice = new TreeSet<TrackerReading>();
-            readingsByDevice.put(reading.getAddress(), byDevice);
-        }
-        SortedSet<TrackerReading> byNode = readingsByDevice.get(reading.getNodeName());
-        if(byNode == null) {
-            byNode = new TreeSet<TrackerReading>();
-            readingsByNode.put(reading.getNodeName(),byNode);
-        }
-
-        byDevice.add(reading);
-        if(byDevice.size() > Constants.READINGS_MAX_COUNT) {
-            byDevice.remove(byDevice.first());
-        }
-
-        byNode.add(reading);
-        if(byNode.size() > Constants.READINGS_MAX_COUNT) {
-            byNode.remove(byDevice.first());
+    public Boolean addDevice(TrackerDevice device) {
+        synchronized (devices) {
+            if(getDevice(device.getAddress()) != null) {
+                return false;
+            } else {
+                devices.add(device);
+                return true;
+            }
         }
     }
 
-    public static List<TrackerDevice> getDeviceList() {
-        return new ArrayList<TrackerDevice>(devices.values());
+    public Boolean addNode(TrackerNode node) {
+        synchronized (nodes) {
+            if(getNode(node.getNodeId()) != null) {
+                return false;
+            } else {
+                nodes.add(node);
+                return true;
+            }
+        }
     }
 
-    static {
-        load();
+    public SortedSet<TrackerReading> getNodeReadings(String nodeId) {
+        synchronized(readingsByDevice) {
+            SortedSet<TrackerReading> results = new TreeSet<TrackerReading>();
+            for(TrackerReading reading : readingsByNode.get(nodeId)) {
+                results.add(new TrackerReading(reading));
+            }
+            return results;
+        }
     }
 
-    public static void load() {
-        friendlyNames.clear();
+    public SortedSet<TrackerReading> getDeviceReadings(String deviceAddress) {
+        synchronized(readingsByDevice) {
+            TrackerDevice device = internalGetDevice(deviceAddress);
+            if(device == null) {
+                return null;
+            }
+            SortedSet<TrackerReading> currentList = readingsByDevice.get(device.getAddress());
+            if(currentList == null) {
+                return null;
+            }
+            SortedSet<TrackerReading> results = new TreeSet<TrackerReading>();
+            for(TrackerReading reading : currentList) {
+                results.add(new TrackerReading(reading));
+            }
+            return results;
+        }
+    }
 
-        friendlyNames.put("E6:18:EB:4A:FE:D1", "Miley Collar");
-        friendlyNames.put("F0:B2:48:5A:8A:49", "Joanne Truck");
-        friendlyNames.put("D4:AD:89:B6:D5:C9", "Rod Fitbit");
-        friendlyNames.put("00:07:80:71:E9:29", "Radius USB Beacon");
-        friendlyNames.put("90:59:AF:0B:84:DE", "SensorTag Pink");
-        friendlyNames.put("90:59:AF:0B:85:10", "SensorTag O");
-        friendlyNames.put("E1:07:2C:6F:9A:B2", "Jo Fitbit");
-        friendlyNames.put("D1:75:8B:D0:21:6E", "Radius BeaconTag");
-        friendlyNames.put("E3:26:26:CA:8C:12", "Infiniti Est2DB");
-        friendlyNames.put("F0:A5:E2:21:8A:39", "Estimote T1");
-        friendlyNames.put("F3:68:2F:8C:7D:79", "Estimote LB3");
-        friendlyNames.put("30:14:4A:3C:F2:0F", "MainFloor TV");
-        friendlyNames.put("10.0.1.165", "Rod MotoX");
-        friendlyNames.put("10.0.1.67", "Jo Galaxy S5");
+    public void addReading(TrackerReading reading) {
+        synchronized (readingsByDevice) {
+            SortedSet<TrackerReading> byDevice = readingsByDevice.get(reading.getAddress());
+            if (byDevice == null) {
+                byDevice = new TreeSet<TrackerReading>();
+                readingsByDevice.put(reading.getAddress(), byDevice);
+            }
+            SortedSet<TrackerReading> byNode = readingsByNode.get(reading.getNodeName());
+            if (byNode == null) {
+                byNode = new TreeSet<TrackerReading>();
+                readingsByNode.put(reading.getNodeName(), byNode);
+            }
 
-        String [] PreConfiguredNodes = {
-            "macbookpro",
-            "pb1-basement",
-            "pb3-playroom",
-            "pbmaster-office",
-            "rainbow-frontdoor",
-            "smoky-garage",
-            "white-tvroom",
-            "twilio"
-        };
+            byDevice.add(reading);
+            if (byDevice.size() > Constants.READINGS_MAX_COUNT) {
+                byDevice.remove(byDevice.first());
+            }
 
-        for(String nodeName : PreConfiguredNodes) {
-            TrackerNode node = new TrackerNode();
-            node.setNodeId(nodeName);
-            nodes.put(nodeName,node);
+            byNode.add(reading);
+            if (byNode.size() > Constants.READINGS_MAX_COUNT) {
+                byNode.remove(byNode.first());
+            }
+        }
+    }
+
+    public void load() throws IOException  {
+
+        Gson gson = new Gson();
+        TrackerConfiguration configuration = gson.fromJson(new FileReader("tracker-network.json"),TrackerConfiguration.class);
+
+        for(TrackerDevice device : configuration.devices) {
+            addDevice(device);
+        }
+
+        for(TrackerNode node : configuration.nodes) {
+            addNode(node);
         }
     }
 }

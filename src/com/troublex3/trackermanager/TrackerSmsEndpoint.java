@@ -13,49 +13,41 @@ import java.util.Date;
  */
 public class TrackerSmsEndpoint extends HttpServlet {
 
-    protected String mapRequestToSource(HttpServletRequest request) {
-        String from = request.getParameter("From");
-        if(from != null) {
-            if (from.contentEquals("+14254459180")) {
-                return "Rod MotoX SMS";
-            } else if (from.contentEquals("+14258290621")) {
-                return "Joanne Galaxy S5 SMS";
-            } else if (from.contentEquals("+14252474864")) {
-                return "Sarah iPhone";
-            } else if (from.contentEquals("+14259854543")) {
-                return "Sam iPhone";
-            }
-        }
-        return null;
-    }
+    public static final String TwilloNodeName = "twilio";
+    public static final String TwilloFromField = "From";
+    public static final String EnteredKeyword = "entered";
+    public static final String ConnectedKeyword = "connected";
+    public static final String HomeKeyword = "1";
+    public static final String WorkKeyword = "2";
+    public static final Double HomeStateValue = 1.0;
+    public static final Double WorkStateValue = 2.0;
+    public static final Double UnknownStateValue = 3.0;
+    public static final Double ExitedStateValue = 0.0;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        String addressToUse = mapRequestToSource(request);
-        if(addressToUse==null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
-
         String textContent = request.getParameter("Body");
-        Integer stateToWrite = 0;
+        Double stateToWrite = TrackerSmsEndpoint.UnknownStateValue;
 
-        if(textContent.contains("entered")) {
-            if(textContent.contains("1")) {
-                stateToWrite = 1;
-            } else if(textContent.contains("2")) {
-                stateToWrite = 2;
+        if(textContent.contains(TrackerSmsEndpoint.EnteredKeyword) || textContent.contains(TrackerSmsEndpoint.ConnectedKeyword)) {
+            if(textContent.contains(TrackerSmsEndpoint.HomeKeyword)) {
+                stateToWrite = TrackerSmsEndpoint.HomeStateValue;
+            } else if(textContent.contains(TrackerSmsEndpoint.WorkKeyword)) {
+                stateToWrite = TrackerSmsEndpoint.WorkStateValue;
             } else {
-                stateToWrite = 3;
+                stateToWrite = TrackerSmsEndpoint.UnknownStateValue;
             }
         } else {
-            stateToWrite = 0;
+            stateToWrite = TrackerSmsEndpoint.ExitedStateValue;
         }
 
-        TrackerShared.addReading("twilio", addressToUse, stateToWrite.doubleValue());
+        TrackerController.addReading(TrackerSmsEndpoint.TwilloNodeName,
+                request.getParameter(TrackerSmsEndpoint.TwilloFromField),
+                stateToWrite);
 
-        response.setContentType("text/plain");
-        response.getWriter().print(addressToUse + " -- " + stateToWrite.toString());
+        response.setContentType("text/xml");
+        response.getWriter().print("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                "<Response>\n" +
+                "</Response>");
      }
 }

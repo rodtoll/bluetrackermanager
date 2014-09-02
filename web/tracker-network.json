@@ -4,7 +4,7 @@
             "address": "E6:18:EB:4A:FE:D1",
             "friendlyName": "Miley Collar",
             "deviceType": "StickNFind",
-            "isyVariableName": "BLE_MILEY",
+            "isyVariableId": 24,
             "reportingInterval": 4,
             "timeoutInterval": 60
         },
@@ -12,7 +12,7 @@
             "address": "F0:B2:48:5A:8A:49",
             "friendlyName": "Honda Pilot",
             "deviceType": "StickNFind",
-            "isyVariableName": "BLE_HONDA",
+            "isyVariableId": 67,
             "reportingInterval": 4,
             "timeoutInterval": 60
         },
@@ -20,7 +20,7 @@
             "address": "E1:07:2C:6F:9A:B2",
             "friendlyName": "Joanne Fitbit",
             "deviceType": "Fitbit",
-            "isyVariableName": "BLE_FITBIT_JOANNE",
+            "isyVariableId": 45,
             "reportingInterval": 4,
             "timeoutInterval": 60
         },
@@ -28,7 +28,7 @@
             "address": "D4:AD:89:B6:D5:C9",
             "friendlyName": "Rod Fitbit",
             "deviceType": "Fitbit",
-            "isyVariableName": "BLE_FITBIT_ROD",
+            "isyVariableId": 44,
             "reportingInterval": 4,
             "timeoutInterval": 60
         },
@@ -36,7 +36,7 @@
             "address": "E3:26:26:CA:8C:12",
             "friendlyName": "Infiniti",
             "deviceType": "Estimote",
-            "isyVariableName": "BLE_INFINITI",
+            "isyVariableId": 68,
             "reportingInterval": 3,
             "timeoutInterval": 60
         },
@@ -44,7 +44,7 @@
             "address": "10.0.1.165",
             "friendlyName": "Rod MotoX",
             "deviceType": "Ping",
-            "isyVariableName": "BLE_MOTOX_ROD",
+            "isyVariableId": 87,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -52,7 +52,7 @@
             "address": "10.0.1.67",
             "friendlyName": "Jo Galaxy S5",
             "deviceType": "Ping",
-            "isyVariableName": "BLE_GALAXYS5_JO",
+            "isyVariableId": 90,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -60,7 +60,7 @@
             "address": "00:07:80:71:E9:29",
             "friendlyName": "Radius USB Beacon",
             "deviceType": "RadiusUSB",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -68,7 +68,7 @@
             "address": "90:59:AF:0B:84:DE",
             "friendlyName": "SensorTag Pink",
             "deviceType": "SensorTag",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -76,7 +76,7 @@
             "address": "90:59:AF:0B:85:10",
             "friendlyName": "SensorTag Orange",
             "deviceType": "SensorTag",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -84,7 +84,7 @@
             "address": "D1:75:8B:D0:21:6E",
             "friendlyName": "Radius BeaconTag",
             "deviceType": "RadiusTag",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -92,7 +92,7 @@
             "address": "F0:A5:E2:21:8A:39",
             "friendlyName": "Estimote T1",
             "deviceType": "Estimote",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -100,7 +100,7 @@
             "address": "F3:68:2F:8C:7D:79",
             "friendlyName": "Estimote LB3",
             "deviceType": "Estimote",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -108,7 +108,7 @@
             "address": "30:14:4A:3C:F2:0F",
             "friendlyName": "MainFloor TV",
             "deviceType": "PanasonicTV",
-            "isyVariableName": "",
+            "isyVariableId": 91,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -116,7 +116,7 @@
             "address": "+14254459180",
             "friendlyName": "Rod MotoX SMS",
             "deviceType": "SMS",
-            "isyVariableName": "BLE_SMS_ROD",
+            "isyVariableId": 92,
             "reportingInterval": 30,
             "timeoutInterval": 65
         },
@@ -124,7 +124,95 @@
             "address": "+14252474864",
             "friendlyName": "Sarah iPhone",
             "deviceType": "SMS",
-            "isyVariableName": "BLE_SMS_SARAH",
+            "isyVariableId": 93,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.130",
+            "friendlyName": "Xbox One",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.131",
+            "friendlyName": "Playstation 3",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.132",
+            "friendlyName": "Office TV",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.133",
+            "friendlyName": "XBox 360 Main Floor",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.134",
+            "friendlyName": "XBox 360 Basement",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.135",
+            "friendlyName": "Bedroom TV",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.136",
+            "friendlyName": "Mainfloor Chromecast",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.137",
+            "friendlyName": "Mainfloor TV",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.138",
+            "friendlyName": "Wii",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.139",
+            "friendlyName": "Basement TV",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
+            "reportingInterval": 30,
+            "timeoutInterval": 65
+        },
+        {
+            "address": "10.0.1.140",
+            "friendlyName": "Basement Chromecast",
+            "deviceType": "Ping",
+            "isyVariableId": 0,
             "reportingInterval": 30,
             "timeoutInterval": 65
         }
@@ -132,71 +220,102 @@
     "nodes": [
         {
             "nodeId": "pibp1",
-            "isyVariableName":"BluetoothLE_PiBP1_Heartbeat",
+            "isyVariableId": 26,
             "address": "10.0.1.170",
             "location": "Basement",
             "nodeType": "pibp",
+            "deviceId": "hci0",
             "capabilities": ""
         },
         {
             "nodeId": "pibp3",
-            "isyVariableName":"BluetoothLE_PiBP3_Heartbeat",
+            "isyVariableId": 71,
             "address": "10.0.1.180",
             "location": "Master Bedroom",
             "nodeType": "pibp",
-            "capabilities": "rht"
+            "deviceId": "hci0",
+            "capabilities": "rht",
+            "rhtService": {
+                "baseAddress": "pibp3-rht",
+                "sleep": 10
+            }
         },
         {
             "nodeId": "pibpmaster",
-            "isyVariableName":"BluetoothLE_PiBPMaster_Heartbeat",
+            "isyVariableId": 70,
             "address": "10.0.1.175",
             "location": "Office",
             "nodeType": "pibp",
-            "capabilities": "ping rht"
+            "deviceId": "hci0",
+            "capabilities": "ping rht",
+            "pingService": {
+                "sleepPeriod": 15,
+                "timeout": 2,
+                "retries": 3,
+                "retryPause": 1
+                 },
+            "rhtService": {
+                "baseAddress": "pibpmaster-rht",
+                "sleep": 10
+            },
+            "garageService": {
+                "pin": 4
+            }
         },
         {
             "nodeId": "pirainbow",
-            "isyVariableName": "BluetoothLE_PiRainbow_Heartbeat",
+            "isyVariableId": 23,
             "address": "10.0.1.152",
             "location": "Main Floor Closet",
             "nodeType": "pi",
+            "deviceId": "hci0",
             "capabilities": ""
         },
         {
             "nodeId": "piwhite",
-            "isyVariableName": "BluetoothLE_PiWhite_Heartbeat",
+            "isyVariableId": 20,
             "address": "10.0.1.185",
             "location": "TV Room",
             "nodeType": "pi",
+            "deviceId": "hci0",
             "capabilities": ""
         },
         {
             "nodeId": "pismoky",
-            "isyVariableName": "BluetoothLE_PiSmoky_Heartbeat",
+            "isyVariableId": 21,
             "address": "10.0.1.155",
             "location": "Garage",
             "nodeType": "pi",
+            "deviceId": "hci0",
             "capabilities": ""
         },
         {
             "nodeId": "macbookpro",
-            "isyVariableName": "BluetoothLE_MacBookPro_Heartbeat",
+            "isyVariableId": 69,
             "address": "10.0.1.62",
             "location": "Office",
             "nodeType": "macbook",
-            "capabilities": ""
+            "deviceId": "hci1",
+            "capabilities": "",
+            "pingService": {
+                "sleepPeriod": 15,
+                "timeout": 2,
+                "retries": 3,
+                "retryPause": 1
+            }
         },
         {
             "nodeId": "macbookpro-mac",
-            "isyVariableName": "BluetoothLE_MacBookPro_Heartbeat",
+            "isyVariableId": 69,
             "address": "127.0.0.1",
             "location": "Office",
             "nodeType": "macbook",
+            "deviceId": "hci1",
             "capabilities": ""
         },
         {
             "nodeId": "twilio",
-            "isyVariableName": "",
+            "isyVariableId": 0,
             "address": "",
             "location": "",
             "nodeType": "twilio",

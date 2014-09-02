@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="isyRest">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/isyRest.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/isyRest.jar!/" />
+    </SOURCES>
+  </library>
+</component>

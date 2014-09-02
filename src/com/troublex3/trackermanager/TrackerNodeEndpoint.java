@@ -31,9 +31,11 @@ public class TrackerNodeEndpoint {
         if(id.contentEquals(TrackerNodeEndpoint.CurrentString)) {
             id = request.getRemoteAddr();
         }
-        if(!TrackerController.markNodeHeartbeatSeen(id, new Date())) {
+        Date timeToUse = new Date();
+        if(!TrackerController.markNodeHeartbeatSeen(id, timeToUse)) {
             throw new NotFoundException("Specified node does not exist");
         }
+        TrackerController.doPresenceCheckIfNeeded(timeToUse);
     }
 
     @ApiMethod(

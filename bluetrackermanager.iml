@@ -32,6 +32,8 @@
     <orderEntry type="library" name="angular" level="application" />
     <orderEntry type="library" name="jackson-core-2.3.4" level="project" />
     <orderEntry type="library" name="gson-2.3" level="project" />
+    <orderEntry type="library" name="isy_inst" level="project" />
+    <orderEntry type="library" name="isyRest" level="project" />
   </component>
 </module>
 

@@ -13,19 +13,20 @@ public class TrackerDevice {
     private String friendlyName;
     private Date lastSeen;
     private TrackerReading lastReading;
-    private String isyVariableName;
+    private Integer isyVariableId;
     private Boolean isPresent;
     private Integer reportingInterval;
     private Integer timeoutInterval;
+    private String deviceType;
 
     public TrackerDevice() {
-
+        setIsPresent(null);
     }
 
     public TrackerDevice(String _address,
                          String _friendlyName,
                          Date _lastSeen,
-                         String _isyVariableName,
+                         Integer _isyVariableId,
                          Integer _reportingInterval,
                          Integer _timeoutInterval
                          ) {
@@ -33,10 +34,11 @@ public class TrackerDevice {
         setFriendlyName(_friendlyName);
         setLastSeen(_lastSeen);
         setLastReading(null);
-        setIsyVariableName(_isyVariableName);
-        setIsPresent(false);
+        setIsyVariableId(_isyVariableId);
+        setIsPresent(null);
         setReportingInterval(_reportingInterval);
         setTimeoutInterval(_timeoutInterval);
+        setDeviceType("Dynamic");
     }
 
     public TrackerDevice(TrackerDevice deviceToCopy) {
@@ -52,10 +54,11 @@ public class TrackerDevice {
         } else {
             setLastReading(null);
         }
-        setIsyVariableName(deviceToCopy.getIsyVariableName());
+        setIsyVariableId(deviceToCopy.getIsyVariableId());
         setIsPresent(deviceToCopy.getIsPresent());
         setTimeoutInterval(deviceToCopy.getTimeoutInterval());
         setReportingInterval(deviceToCopy.getReportingInterval());
+        setDeviceType(deviceToCopy.getDeviceType());
     }
 
     public String getAddress() {
@@ -87,6 +90,9 @@ public class TrackerDevice {
 
     public void setLastReading(TrackerReading reading) {
         this.lastReading = reading;
+        if(this.lastReading != null) {
+            this.setLastSeen(reading.getTimeStamp());
+        }
     }
 
     public Boolean getIsPresent() {
@@ -101,12 +107,12 @@ public class TrackerDevice {
         this.lastSeen = lastSeen;
     }
 
-    public String getIsyVariableName() {
-        return isyVariableName;
+    public Integer getIsyVariableId() {
+        return this.isyVariableId;
     }
 
-    public void setIsyVariableName(String isyVariableName) {
-        this.isyVariableName = isyVariableName;
+    public void setIsyVariableId(Integer _isyVariableId) {
+        this.isyVariableId = _isyVariableId;
     }
 
     public Integer getReportingInterval() {
@@ -123,5 +129,22 @@ public class TrackerDevice {
 
     public void setTimeoutInterval(Integer timeoutInterval) {
         this.timeoutInterval = timeoutInterval;
+    }
+
+    public Boolean checkPresence(Date nowTime) {
+        if(getLastSeen() == null) {
+            return false;
+        }
+        long difference = nowTime.getTime() - getLastSeen().getTime();
+        long differenceInS = (difference / 1000);
+        return (differenceInS <= getTimeoutInterval());
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

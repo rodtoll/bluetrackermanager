@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.io.*;
 import com.google.gson.*;
+import java.util.Date;
 
 /**
  * Created by rodtoll on 7/25/14.
@@ -181,7 +182,7 @@ public class TrackerStore {
     }
 
     public void load() throws IOException  {
-
+        Date nowDate = new Date();
         Gson gson = new Gson();
         TrackerConfiguration configuration = gson.fromJson(new FileReader("tracker-network.json"),TrackerConfiguration.class);
 

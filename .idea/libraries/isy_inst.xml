@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="isy_inst">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/isy_inst.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
